@@ -1,17 +1,14 @@
-# DAG exhibiting task flow paradigm in airflow 2.0
-# https://airflow.apache.org/docs/apache-airflow/2.0.2/tutorial_taskflow_api.html
-# Modified for our use case
-
 import json
 from airflow.decorators import dag, task
 from airflow.utils.dates import days_ago
-# These args will get passed on to each operator
-# You can override them on a per-task basis during operator initialization
+
+
 default_args = {
     'owner': 'airflow',
 }
+
 @dag(default_args=default_args, schedule_interval="@daily", start_date=days_ago(2), tags=['example'])
-def dag_with_taskflow_api():
+def ror_to_rg():
     """
     ### TaskFlow API Tutorial Documentation
     This is a simple ETL data pipeline example which demonstrates the use of
@@ -23,10 +20,7 @@ def dag_with_taskflow_api():
     @task()
     def extract():
         """
-        #### Extract task
-        A simple Extract task to get data ready for the rest of the data
-        pipeline. In this case, getting data is simulated by reading from a
-        hardcoded JSON string.
+        Call master_db and retrieve relevant information to call API
         """
         data_string = '{"1001": 301.27, "1002": 433.21, "1003": 502.22}'
 
